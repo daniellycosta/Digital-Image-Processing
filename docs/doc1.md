@@ -12,7 +12,9 @@ O exercício encontrado na [seção 2.2](https://agostinhobritojr.github.io/tuto
 
 Para isso, foi convencionado que a entrada do algoritmo seria escrito como mostrado logo abaixo:
 
-`python3 setup.py <path_da_imagem> <coord_x_p1> <coord_y_p1> <coord_x_p2> <coord_y_p2>`
+```
+$ python3 setup.py <path_da_imagem> <coord_x_p1> <coord_y_p1> <coord_x_p2> <coord_y_p2>
+```
 
 Antes do processamento é necessário garantir que todas as entradas sejam fornecidas bem como garantir que os pontos se encontrem dentro da imagem. O trecho de código abaixo mostram como esses tratamentos foram feitos.
 
@@ -61,9 +63,9 @@ Fazendo isso, o resultado será a imagem com a região escolhida em negativo
 
 Nesse exercício, foi pedido para que passando uma imagem, os quadrantes sejam trocados nas diagonais. Para isso, foi convencionado que a imagem seria passada pelo terminal na hora da execução utilizando-se do comando abaixo.
 
-<center>
-`python3 setup.py <path_da_imagem>`
-</center>
+```
+$ python3 setup.py <path_da_imagem>
+```
 
 Após a imagem ser processada com sucesso, foi obtido o _pixel_ de separação dos quadrantes. Considerando que as imagens passadas serão quadradas o _pixel_ de separação foi obtido utilizando-se do seguinte algoritmo.
 
@@ -252,9 +254,9 @@ while(1):
 
 Ainda no mesmo tópico de manipulação do histograma, foi pedido para fazer um detector de movimentos. Para isso foi feito um programa que recebe por argumento a tolerância desejada para a variação de histograma que constitui movimento, conforme pode ser observado abaixo, onde o primeiro trecho representa como deve ser feita a execução do _software_ e a segunda o tratamento feito na tolerância passada pelo usuário.
 
-<center>
-`python3 setup.py <tolerancia>`
-</center>
+```
+$ python3 setup.py <tolerancia>
+```
 
 ```python
 
@@ -340,6 +342,67 @@ Ao utilizar os dois filtros percebeu-se uma redução no encontro de falsas ares
 </figure>
 </center>
 
-## Tilt Shift
+## Tilt Shift em Imagens
 
-[Nesta que é a última sessão da primeira unidade](https://agostinhobritojr.github.io/tutorial/pdi/#_exerc%C3%ADcios_5) é pedido que
+Nesta que é a [última sessão da primeira unidade](https://agostinhobritojr.github.io/tutorial/pdi/#_exerc%C3%ADcios_5) é pedido que, com base no [exemplo dado no material](https://agostinhobritojr.github.io/tutorial/pdi/exemplos/addweighted.cpp) implemente-se um programa para geração de um _tilt shift_. É pedido que tenha-se três ajustes na interface sendo eles: a altura da região central que entrará em foco, força do decaimento da região borrada e regulagem da posição vertical do centro da região que entrará em foco.
+
+Na hora da execução, o programa recebe duas imagens, como pode ser observado no comando abaixo, sendo a primeira a que ficara no plano de fundo e a segunda a que será manipulada para criação do efeito.
+
+```
+$ python3 setup.py <path_da_primeira_imagem> <path_da_segunda_imagem>
+```
+
+No código, o primeiro passo realizado foi a criação de uma janela e dos três sliders como pode ser visto no trecho abaixo.
+
+```python
+alfa_slider_max = 100
+center_slider_max = 100
+height_slider_max = 100
+
+cv2.namedWindow('image')
+
+cv2.createTrackbar('Alfa', 'image', 0, alfa_slider_max, skip)
+cv2.createTrackbar('Center', 'image', 0, center_slider_max, skip)
+cv2.createTrackbar('Height', 'image', 0, height_slider_max, skip)
+
+```
+
+Em seguida, esses sliders foram inseridos na janela e seus valores monitorados continuamente em um laço. Os valores escolhidos pelo usuário são aplicados na imagem denominada `blended`. A partir da posição desejada do centro e da altura é possível calcular os pontos superior esquerdo e inferior direito para que assim possamos construir a janela, como mostrado no trecho abaixo. Ao encerrar o programa, apertando a tecla `esc` a imagem final é salva.
+
+```python
+while True:
+    alfa_slider = cv2.getTrackbarPos('Alfa', 'image')
+    center_slider = cv2.getTrackbarPos('Center', 'image')
+    height_slider = cv2.getTrackbarPos('Height', 'image')
+
+    p1 = (max(0, int((center_slider-height_slider)/100.0*columns)), 0)
+    p2 = (min(columns-1, int((center_slider+height_slider)/100.0*columns)), rows-1)
+
+    imgTop = img1.copy()
+    imgTop[p1[0]:p2[0], p1[1]:p2[1], :] = img2.copy()[p1[0]:p2[0],
+                                                      p1[1]:p2[1], :]
+
+    alfa = float(float(alfa_slider)/float(alfa_slider_max))
+    blended = cv2.addWeighted(img1, alfa, imgTop, 1-alfa, 0)
+
+    cv2.imshow('image', blended)
+    k = cv2.waitKey(1) & 0xFF
+    if k == 27:
+        break
+```
+
+Abaixo, é possível ver uma demonstração do programa em execução, seguido da imagem salva.
+
+<center>
+<figure float="middle" class="image">
+  <img src="./assets/tilt_shift_fotos.GIF" alt=" Demonstração do ajustes dos parâmetros GIF">
+  <figcaption>Figura 15 - Demonstração do ajustes dos parâmetros</figcaption> 
+</figure>
+</center>
+
+<center>
+<figure float="middle" class="image">
+  <img src="./assets/output.png" alt="Imagem salva pelo programa">
+  <figcaption>Figura 16 - Imagem salva pelo programa</figcaption> 
+</figure>
+</center>
