@@ -12,9 +12,8 @@ while(1):
     if frame is None:
         break
 
-    img_hsv = cv2.cvtColor(frame, cv2.COLOR_RGB2HSV)
-    img_hsv[:, :, 2] = cv2.equalizeHist(img_hsv[:, :, 2])
-    img = cv2.cvtColor(img_hsv, cv2.COLOR_HSV2RGB)
+    img = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    img = cv2.equalizeHist(img)
     cv2.imshow("Video", img)
    
     k = cv2.waitKey(30) & 0xff
