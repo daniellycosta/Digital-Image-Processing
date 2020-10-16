@@ -173,7 +173,9 @@ cv2.floodFill(img,None,(0,0),255)
 </figure>
 </center>
 
-Por fim, para diferenciar as bolhas com e sem buracos, a imagem foi varrida, e com auxílio do método de preenchimento de regiões os buracos foram um a um sendo preenchidos, enquanto um contador contabilizava a quantidade de buracos encontrados checando se o buraco encontrado fazia parte de uma bolha contabilizada ou não. A forma de varredura mencionado pode ser conferida no trecho de código abaixo.
+Por fim, para diferenciar as bolhas com e sem buracos, a imagem foi varrida, e com auxílio do método de preenchimento de regiões os buracos foram um a um sendo preenchidos, enquanto um contador contabilizava a quantidade de buracos encontrados checando se o buraco encontrado fazia parte de uma bolha contabilizada ou não, essa checagem é feita aplicando-se o _floodFill_ também em seus 8 vizinhos diretos. A forma de varredura mencionado pode ser conferida no trecho de código abaixo.
+
+Vale salientar que o contador de bolhas com buracos só é incrementado quando o pixel atual for preto e seus arredores não forem brancos.
 
 ```python
 noHollowObjecs = 0
@@ -208,3 +210,136 @@ There were 14 objects with no holes in the picture
 </center>
 
 ## Equalização de Histograma
+
+Nesse exercício prático que pode ser encontrado [aqui](https://agostinhobritojr.github.io/tutorial/pdi/#_exerc%C3%ADcios_3), é pedido para que com o auxílio de uma câmera, imagens em escala de cinza sejam capturadas e tenham seu histograma equalizado exibido.
+
+Para isso, o primeiro passo é a abertura da câmera do sistema testando sua instanciação conforme pode ser visto abaixo
+
+```python
+cam = cv2.VideoCapture(0)
+
+if cam is None:
+    sys.exit("Could not open webcam")
+```
+
+Em seguida o programa entra em loop capturando os quadros da câmera, convertendo-os para escala de cinza, equalizando-os e mostrando-os em uma janela como pode ser visto no trecho abaixo e na Figura 10.
+
+```python
+while(1):
+    ret, frame = cam.read()
+
+    if frame is None:
+        break
+
+    img_hsv = cv2.cvtColor(frame, cv2.COLOR_RGB2HSV)
+    img_hsv[:, :, 2] = cv2.equalizeHist(img_hsv[:, :, 2])
+    img = cv2.cvtColor(img_hsv, cv2.COLOR_HSV2RGB)
+    cv2.imshow("Video", img)
+
+    k = cv2.waitKey(30) & 0xff
+    if k == 27:
+        break
+```
+
+<center>
+<figure float="middle" class="image">
+  <img src="./assets/histograma_equalizado.GIF" alt="after.png">
+  <figcaption>Figura 10 - Resultado da equalização do histograma</figcaption> 
+</figure>
+</center>
+
+## Detecção de Movimento
+
+Ainda no mesmo tópico de manipulação do histograma, foi pedido para fazer um detector de movimentos. Para isso foi feito um programa que recebe por argumento a tolerância desejada para a variação de histograma que constitui movimento, conforme pode ser observado abaixo, onde o primeiro trecho representa como deve ser feita a execução do _software_ e a segunda o tratamento feito na tolerância passada pelo usuário.
+
+<center>
+`python3 setup.py <tolerancia>`
+</center>
+
+```python
+
+tolerance = float(sys.argv[1])
+
+if tolerance is None:
+    tolerance = 0.10
+
+```
+
+Em seguida o programa pega o primeiro quadro disponível da câmera já aberta e calcula seu histograma, no canal 0, para servir de referência para a primeira comparação. Esse cálculo pode ser observado abaixo
+
+```python
+
+oldHist = cv2.calcHist([frame], [0], None, [256], [0, 256])
+
+```
+
+Em seguida entra-se no seguinte _loop_: leitura do novo frame seguido do cálculo de histograma do frame, no canal 0; comparação dos dois histogramas em relação ao tamanho da imagem, mostrando uma borda vermelha ao redor da imagem ao detectar variação maior que a tolerância e, por fim a variável que guarda histograma do frame passado é atualizado. O código do _loop_ bem como o resultado obtido (Figura 11) pode ser observado abaixo.
+
+```python
+while(1):
+    ret, frame = cam.read()
+    if frame is None:
+        break
+
+    hist = cv2.calcHist([frame], [0], None, [256], [0, 256])
+    histDiff = oldHist - hist
+    rows, columns, _ = frame.shape
+    if np.sum(np.abs(histDiff))/(columns*rows) > tolerance:
+        cv2.rectangle(frame, (0, 0), (columns-1, rows-1), (0, 0, 255), 10)
+
+    cv2.imshow("Video", frame)
+
+    oldHist = hist
+    k = cv2.waitKey(30) & 0xff
+    if k == 27:
+        break
+```
+
+<center>
+<figure float="middle" class="image">
+  <img src="./assets/movimento.GIF" alt="after.png">
+  <figcaption>Figura 11 - Resultado do detector de movimento</figcaption> 
+</figure>
+</center>
+
+## Filtro Espacial
+
+O exercício do [tópico seguinte](https://agostinhobritojr.github.io/tutorial/pdi/#_exerc%C3%ADcios_4) do material do professor fala da temática dos filtros espaciais e pede para que a partir do [código fornecido como exemplo](https://agostinhobritojr.github.io/tutorial/pdi/exemplos/filtroespacial.cpp) seja implementado outro contendo a funcionalidade de calcular o filtro laplaciano do gaussiano de uma imagem.
+
+Para isso foi adicionado mais um opção de tecla a ser pressionada. Ao pressionar a tecla ‘s’ o programa entra no processo de aplicar o filtro gaussiano e em seguida o filtro laplaciano conforme mostrado nos trechos abaixo.
+
+```python
+elif k == ord('s'):
+        choosenMask = 'laplacianGaussian'
+        print(filters['gauss'])
+        print(filters['laplacian'])
+```
+
+```python
+if choosenMask == 'laplacianGaussian':
+        frame = cv2.filter2D(frame, -1, filters['gauss'])
+        frame = cv2.filter2D(frame, -1, filters['laplacian'])
+```
+
+Ao utilizar os dois filtros percebeu-se uma redução no encontro de falsas arestas, como o filtro gaussiano borra a imagem temos menos trocas bruscas de cor devido ao ruído, em relação à utilização apenas do laplaciano. Essas constatações podem ser observadas nas Figuras 12,13 e 14 onde é possível observar a imagem sem filtros, somente com o filtro laplaciano e com o filtro laplaciano e gaussiano, respectivamente.
+
+<center>
+<figure float="middle" class="image">
+  <img src="./assets/sem_filtros.GIF" alt="imagem sem filtro">
+  <figcaption>Figura 12 - Imagem original da câmera sem filtro</figcaption> 
+</figure>
+
+<figure float="middle" class="image">
+  <img src="./assets/filtro_laplaciano.GIF" alt="imagem com filtro laplaciano">
+  <figcaption>Figura 13 - Imagem com filtro laplaciano</figcaption> 
+</figure>
+
+<figure float="middle" class="image">
+  <img src="./assets/filtros_laplaciano_gauss.GIF" alt="imagem com filtro laplaciano e gaussiano">
+  <figcaption>Figura 14 - Imagem com filtro laplaciano do gaussiano</figcaption> 
+</figure>
+</center>
+
+## Tilt Shift
+
+[Nesta que é a última sessão da primeira unidade](https://agostinhobritojr.github.io/tutorial/pdi/#_exerc%C3%ADcios_5) é pedido que
