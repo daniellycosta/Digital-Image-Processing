@@ -1,7 +1,7 @@
 ---
 id: doc1
 title: Exercícios da 1ª Unidade
-sidebar_label: Example Page
+sidebar_label: Exercícios Práticos
 ---
 
 Exercícios **2 - 6** encontrados na [página do professor Agostinho Brito](https://agostinhobritojr.github.io/tutorial/pdi/)
@@ -406,3 +406,7 @@ Abaixo, é possível ver uma demonstração do programa em execução, seguido d
   <figcaption>Figura 16 - Imagem salva pelo programa</figcaption> 
 </figure>
 </center>
+
+## Tilt Shift em Vídeos
+
+Em breve!
