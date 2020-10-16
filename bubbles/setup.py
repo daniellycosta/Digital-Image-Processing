@@ -22,34 +22,36 @@ for j in range(rows):
 
 cv2.imshow('Image - Border cleaning',img)
 
+img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+
 #counting all objects after removing those touching the borders
 noObjects = 0
 for i in range(columns):
     for j in range(rows):
-        if img[i,j] == 255:
-            shade = 1 + (noObjects%254)
-            cv2.floodFill(img,None,(j,i),shade)
+        if (img[i,j,:] == (255,255,255)).all():
             noObjects+=1
+            shade = ( noObjects%255, int(noObjects/255)%65535,int(noObjects/65535))
+            cv2.floodFill(img,None,(j,i),shade)
 
 
 cv2.imshow('Image - Labeling',img)
 print(f'We found {noObjects} objects in the picture')
 
 #inverting background so we can safely say that we found a hole when we find a black spot
-cv2.floodFill(img,None,(0,0),255)
+cv2.floodFill(img,None,(0,0),(255,255,255))
 cv2.imshow('Image - Inverting',img)
 
 #counting number of objects with a hole
 noHollowObjecs = 0
 for i in range(columns):
     for j in range(rows):
-        if img[i,j] == 0:
-            cv2.floodFill(img,None,(j,i),255)
+        if (img[i,j,:] == (0,0,0)).all():
+            cv2.floodFill(img,None,(j,i),(255,255,255))
             #tests to see if hole is in anew object that has not been flooded yet
             for difI in [-1,0,1]: 
                 for difJ in [-1,0,1]: 
-                    if img[i-difI,j-difJ] != 255:
-                        cv2.floodFill(img,None,(j-difJ,i-difI),255)
+                    if (img[i-difI,j-difJ] != (255,255,255)).any():
+                        cv2.floodFill(img,None,(j-difJ,i-difI),(255,255,255))
                         noHollowObjecs+=1
 
 print(f'There were {noHollowObjecs} objects with holes in the picture')
