@@ -28,4 +28,4 @@ cv.imshow("Image - After", out_img)
 k = cv.waitKey(0)
 
 if k == ord("s"):
-    cv.imwrite("change_regions_out.png", img)
+    cv.imwrite("change_regions_out.png", out_img)

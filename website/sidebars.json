@@ -1,0 +1,10 @@
+{
+  "docs": {
+    "1ª Unidade": ["doc1"],
+    "2ª Unidade": ["doc2"],
+    "3ª Unidade": ["doc3"]
+  },
+  "docs-other": {
+    "First Category": ["doc4", "doc5"]
+  }
+}
