@@ -37,7 +37,7 @@ if (img1.shape[0] < frame_width) or (img1.shape[1] < frame_height):
 if cropBakcground:
     img1 = cv2.resize(img1,(frame_width,frame_height))
 
-out = cv2.VideoWriter('outpt.avi',cv2.VideoWriter_fourcc('M','J','P','G'), 24, (frame_width,frame_height))
+out = cv2.VideoWriter('outpt.mp4',cv2.VideoWriter_fourcc('M','J','P','G'), 24, (frame_width,frame_height))
 
 while True:
     alfa_slider = cv2.getTrackbarPos('Alfa','image')
