@@ -4,7 +4,7 @@ title: Exercícios da 1ª Unidade
 sidebar_label: Example Page
 ---
 
-Exercícios **2 - 6** encontrados na página do professor [Agostinho Brito](https://agostinhobritojr.github.io/tutorial/pdi/)
+Exercícios **2 - 6** encontrados na [página do professor Agostinho Brito](https://agostinhobritojr.github.io/tutorial/pdi/)
 
 ## Região Negativa
 
