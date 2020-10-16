@@ -1,0 +1,362 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Exercícios da 1ª Unidade · DCA0445 - Processamento Digital de Imagens</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Exercícios **2 - 6** encontrados na [página do professor Agostinho Brito](https://agostinhobritojr.github.io/tutorial/pdi/)"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Exercícios da 1ª Unidade · DCA0445 - Processamento Digital de Imagens"/><meta property="og:type" content="website"/><meta property="og:url" content="https://daniellycosta.github.io/Digital-Image-Processing/"/><meta property="og:description" content="Exercícios **2 - 6** encontrados na [página do professor Agostinho Brito](https://agostinhobritojr.github.io/tutorial/pdi/)"/><meta property="og:image" content="https://daniellycosta.github.io/Digital-Image-Processing/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://daniellycosta.github.io/Digital-Image-Processing/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/Digital-Image-Processing/"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/Digital-Image-Processing/js/scrollSpy.js"></script><link rel="stylesheet" href="/Digital-Image-Processing/css/main.css"/><script src="/Digital-Image-Processing/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/Digital-Image-Processing/"><h2 class="headerTitle">DCA0445 - Processamento Digital de Imagens</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive siteNavItemActive"><a href="/Digital-Image-Processing/docs/doc1" target="_self">1ª Unidade</a></li><li class="siteNavGroupActive"><a href="/Digital-Image-Processing/docs/doc2" target="_self">2ª Unidade</a></li><li class="siteNavGroupActive"><a href="/Digital-Image-Processing/docs/doc3" target="_self">3ª Unidade</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>1ª Unidade</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">1ª Unidade</h3><ul class=""><li class="navListItem navListItemActive"><a class="navItem" href="/Digital-Image-Processing/docs/doc1">Exercícios Práticos</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">2ª Unidade</h3><ul class=""><li class="navListItem"><a class="navItem" href="/Digital-Image-Processing/docs/doc2">Exercícios Práticos 2</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">3ª Unidade</h3><ul class=""><li class="navListItem"><a class="navItem" href="/Digital-Image-Processing/docs/doc3">Exercícios Práticos 3</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Exercícios da 1ª Unidade</h1></header><article><div><span><p>Exercícios <strong>2 - 6</strong> encontrados na <a href="https://agostinhobritojr.github.io/tutorial/pdi/">página do professor Agostinho Brito</a></p>
+<h2><a class="anchor" aria-hidden="true" id="região-negativa"></a><a href="#região-negativa" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Região Negativa</h2>
+<p>O exercício encontrado na <a href="https://agostinhobritojr.github.io/tutorial/pdi/#_exerc%C3%ADcios">seção 2.2</a> pede para que dado uma imagem e dois pontos, uma região seja traçada e exibida com o negativo da imagem.</p>
+<p>Para isso, foi convencionado que a entrada do algoritmo seria escrito como mostrado logo abaixo:</p>
+<pre><code class="hljs">$ <span class="hljs-keyword">python3</span> setup.<span class="hljs-keyword">py</span> <span class="hljs-symbol">&lt;path_da_imagem&gt;</span> <span class="hljs-symbol">&lt;coord_x_p1&gt;</span> <span class="hljs-symbol">&lt;coord_y_p1&gt;</span> <span class="hljs-symbol">&lt;coord_x_p2&gt;</span> <span class="hljs-symbol">&lt;coord_y_p2&gt;</span>
+</code></pre>
+<p>Antes do processamento é necessário garantir que todas as entradas sejam fornecidas bem como garantir que os pontos se encontrem dentro da imagem. O trecho de código abaixo mostram como esses tratamentos foram feitos.</p>
+<pre><code class="hljs css language-python"><span class="hljs-keyword">if</span> len(sys.argv) &lt; <span class="hljs-number">6</span>:
+    sys.exit(<span class="hljs-string">"Missing parameters"</span>)
+
+<span class="hljs-keyword">if</span> img <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+    sys.exit(<span class="hljs-string">"Could not read the image"</span>)
+
+rows, columns = img.shape
+
+<span class="hljs-keyword">if</span> p1[<span class="hljs-number">0</span>] &gt; rows <span class="hljs-keyword">or</span> p1[<span class="hljs-number">1</span>] &gt; columns:
+    sys.exit(<span class="hljs-string">f"P1 should be inside the picture dimensions (<span class="hljs-subst">{rows}</span>X<span class="hljs-subst">{columns}</span>)"</span>)
+<span class="hljs-keyword">if</span> p2[<span class="hljs-number">0</span>] &gt; rows <span class="hljs-keyword">or</span> p2[<span class="hljs-number">1</span>] &gt; columns:
+    sys.exit(<span class="hljs-string">f"P2 should be inside the picture dimensions (<span class="hljs-subst">{rows}</span>X<span class="hljs-subst">{columns}</span>)"</span>)
+
+<span class="hljs-keyword">if</span> p1[<span class="hljs-number">0</span>] &gt; p2[<span class="hljs-number">0</span>]:
+    sys.exit(<span class="hljs-string">f"P1 x coordinate should be lower than P2 x coordinate"</span>)
+<span class="hljs-keyword">if</span> p1[<span class="hljs-number">1</span>] &gt; p2[<span class="hljs-number">1</span>]:
+    sys.exit(<span class="hljs-string">f"P1 y coordinate should be lower than P2 y coordinate"</span>)
+</code></pre>
+<p>Passando do estágio de verificação, o negativo da região passada é obtido percorrendo os <em>pixels</em> da região trocando o seu valor pelo complemento conforme demonstrado no trecho de código abaixo.</p>
+<pre><code class="hljs css language-python"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(p1[<span class="hljs-number">0</span>], p2[<span class="hljs-number">0</span>]):
+    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(p1[<span class="hljs-number">1</span>], p2[<span class="hljs-number">1</span>]):
+        img[i][j] = <span class="hljs-number">1</span>-img[i][j]
+</code></pre>
+<p>Fazendo isso, o resultado será a imagem com a região escolhida em negativo</p>
+<p><center></p>
+<figure float="middle" class="image">
+  <img src="./assets/biel.png" alt="biel.png">
+  <figcaption>Figura 1 - Imagem de entrada</figcaption> 
+</figure>
+<figure class="image">
+  <img src="./assets/regions_out.png" alt="regions_out.png">
+  <figcaption>Figura 2 - Imagem de Saída com os pontos P1(10,10) e P2(100,220)</figcaption>  
+</figure>
+</center>
+<h2><a class="anchor" aria-hidden="true" id="troca-de-regiões"></a><a href="#troca-de-regiões" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Troca de Regiões</h2>
+<p>Nesse exercício, foi pedido para que passando uma imagem, os quadrantes sejam trocados nas diagonais. Para isso, foi convencionado que a imagem seria passada pelo terminal na hora da execução utilizando-se do comando abaixo.</p>
+<pre><code class="hljs">$ <span class="hljs-keyword">python3</span> setup.<span class="hljs-keyword">py</span> <span class="hljs-symbol">&lt;path_da_imagem&gt;</span>
+</code></pre>
+<p>Após a imagem ser processada com sucesso, foi obtido o <em>pixel</em> de separação dos quadrantes. Considerando que as imagens passadas serão quadradas o <em>pixel</em> de separação foi obtido utilizando-se do seguinte algoritmo.</p>
+<pre><code class="hljs css language-python">row_limit = int(rows/<span class="hljs-number">2</span>)
+columns_limit = int(columns/<span class="hljs-number">2</span>)
+</code></pre>
+<p>Uma vez obtidos os <em>pixels</em> de separação, as quatro regiões (quadrantes) da imagem foram obtidos da seguinte forma</p>
+<pre><code class="hljs css language-python">region1 = img[<span class="hljs-number">0</span>:row_limit, <span class="hljs-number">0</span>:columns_limit]
+region2 = img[<span class="hljs-number">0</span>:row_limit, columns_limit:columns]
+region3 = img[row_limit:rows, <span class="hljs-number">0</span>:columns_limit]
+region4 = img[row_limit:rows, columns_limit:columns]
+</code></pre>
+<p>Por fim, os quadrantes foram concatenados na nova ordem formando a imagem de saída conforme mostrado no trecho de código e nas Figuras 3 e 4 abaixo</p>
+<pre><code class="hljs css language-python">upper_img = cv.hconcat([region4, region3])
+lower_img = cv.hconcat([region2, region1])
+
+out_img = cv.vconcat([upper_img, lower_img])
+</code></pre>
+<p><center></p>
+<figure float="middle" class="image">
+  <img src="./assets/biel.png" alt="biel.png">
+  <figcaption>Figura 3 - Imagem de entrada</figcaption> 
+</figure>
+<figure class="image">
+  <img src="./assets/change_regions_out.png" alt="change_regions_out.png">
+  <figcaption>Figura 4 - Imagem de Saída com os quadrantes trocados</figcaption>  
+</figure>
+</center>
+<h2><a class="anchor" aria-hidden="true" id="labeling"></a><a href="#labeling" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Labeling</h2>
+<p>O exercício de labeling, no tópico de <a href="https://agostinhobritojr.github.io/tutorial/pdi/#_exerc%C3%ADcios_2">preenchimentos de regiões</a>, pergunta em seu primeiro tópico, o que acontece caso se tenha mais de 255 objetos na cena e a solução.</p>
+<p>Observando o algoritmo de <a href="https://agostinhobritojr.github.io/tutorial/pdi/exemplos/labeling.cpp">labeling</a> é possível perceber que ao exceder uma quantidade de objetos de 255, o programa original irá ter uma falha ao tentar preencher um tom de cinza inexistente na imagem. Para solucionar esse problema passou-se a utilizar o resto da divisão do contador por 254 somado de um como o tom de cinza do objeto e passamos a incrementação do contador para depois da decisão do tom de cinza, assim teremos tons de cinza variando entre 1 e 254.</p>
+<p>No segundo ponto do exercício é pedido para que se aprimore o algoritmo de modo a não contar bolhas que tocam as bordas da imagem e identificar bolhas com ou sem buracos internos, considerando ainda que podem existir regiões com mais de um buraco.</p>
+<p><center></p>
+<figure float="middle" class="image">
+  <img src="./assets/bolhas.png" alt="bolhas.png">
+  <figcaption>Figura 5 - Imagem utilizada como entrada</figcaption> 
+</figure>
+</center>
+<p>Na solução feita, inicialmente as bordas da imagem (Figura 5) foram limpas utilizando-se do método <em>foodFill</em> , conforme pode ser visto abaixo, passando como parâmetro a cor do fundo da imagem, que nesse caso é preto (0).</p>
+<pre><code class="hljs css language-python">rows, columns = img.shape
+
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(columns):
+    cv2.floodFill(img,<span class="hljs-literal">None</span>,(i,rows<span class="hljs-number">-1</span>),<span class="hljs-number">0</span>)
+    cv2.floodFill(img,<span class="hljs-literal">None</span>,(i,<span class="hljs-number">0</span>),<span class="hljs-number">0</span>)
+
+<span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(rows):
+    cv2.floodFill(img,<span class="hljs-literal">None</span>,(columns<span class="hljs-number">-1</span>,j),<span class="hljs-number">0</span>)
+    cv2.floodFill(img,<span class="hljs-literal">None</span>,(<span class="hljs-number">0</span>,j),<span class="hljs-number">0</span>)
+
+</code></pre>
+<p><center></p>
+<figure float="middle" class="image">
+  <img src="./assets/Image - Border cleaning.png" alt="Border cleaning.png">
+  <figcaption>Figura 6 - Imagem após o tratamento de bordas</figcaption> 
+</figure>
+</center>
+<p>Após o tratamento das bordas (Figura 7), a quantidade de objetos presentes na imagem foi contado utilizando-se do método de <em>labeling</em> já mencionado anteriormente</p>
+<p><center></p>
+<figure float="middle" class="image">
+  <img src="./assets/Image - Labeling.png" alt="Labeling.png">
+  <figcaption>Figura 7 - Imagem após Labeling</figcaption> 
+</figure>
+</center>
+<pre><code class="hljs css language-python">noObjects = <span class="hljs-number">0</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(columns):
+    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(rows):
+        <span class="hljs-keyword">if</span> img[i,j] == <span class="hljs-number">255</span>:
+            shade = <span class="hljs-number">1</span> + (noObjects%<span class="hljs-number">254</span>)
+            cv2.floodFill(img,<span class="hljs-literal">None</span>,(j,i),shade)
+            noObjects+=<span class="hljs-number">1</span>
+
+print(<span class="hljs-string">f'We found <span class="hljs-subst">{noObjects}</span> objects in the picture'</span>)
+
+</code></pre>
+<p>Em seguida, trocou-se a cor do plano de fundo para branco (255), deste modo, é possível identificar os buracos presentes na figura pela cor preta (Figura 8).</p>
+<pre><code class="hljs css language-python">cv2.floodFill(img,<span class="hljs-literal">None</span>,(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>),<span class="hljs-number">255</span>)
+</code></pre>
+<p><center></p>
+<figure float="middle" class="image">
+  <img src="./assets/Image - Inverting.png" alt="Inverting colors.png">
+  <figcaption>Figura 8 - Imagem após a troca de cor no plano de fundo</figcaption> 
+</figure>
+</center>
+<p>Por fim, para diferenciar as bolhas com e sem buracos, a imagem foi varrida, e com auxílio do método de preenchimento de regiões os buracos foram um a um sendo preenchidos, enquanto um contador contabilizava a quantidade de buracos encontrados checando se o buraco encontrado fazia parte de uma bolha contabilizada ou não, essa checagem é feita aplicando-se o <em>floodFill</em> também em seus 8 vizinhos diretos. A forma de varredura mencionado pode ser conferida no trecho de código abaixo.</p>
+<p>Vale salientar que o contador de bolhas com buracos só é incrementado quando o pixel atual for preto e seus arredores não forem brancos.</p>
+<pre><code class="hljs css language-python">noHollowObjecs = <span class="hljs-number">0</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(columns):
+    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(rows):
+        <span class="hljs-keyword">if</span> img[i,j] == <span class="hljs-number">0</span>:
+            cv2.floodFill(img,<span class="hljs-literal">None</span>,(j,i),<span class="hljs-number">255</span>)
+            <span class="hljs-comment">#tests to see if hole is in anew object that has not been flooded yet</span>
+            <span class="hljs-keyword">for</span> difI <span class="hljs-keyword">in</span> [<span class="hljs-number">-1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>]:
+                <span class="hljs-keyword">for</span> difJ <span class="hljs-keyword">in</span> [<span class="hljs-number">-1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>]:
+                    <span class="hljs-keyword">if</span> img[i-difI,j-difJ] != <span class="hljs-number">255</span>:
+                        cv2.floodFill(img,<span class="hljs-literal">None</span>,(j-difJ,i-difI),<span class="hljs-number">255</span>)
+                        noHollowObjecs+=<span class="hljs-number">1</span>
+
+print(<span class="hljs-string">f'There were <span class="hljs-subst">{noHollowObjecs}</span> objects with holes in the picture'</span>)
+print(<span class="hljs-string">f'There were <span class="hljs-subst">{noObjects - noHollowObjecs}</span> objects with no holes in the picture'</span>)
+</code></pre>
+<p>Com isso as saídas do algoritmo foram o trecho abaixo exibidos no terminal e a Figura 9:</p>
+<pre><code class="hljs">We found <span class="hljs-number">21</span> objects <span class="hljs-keyword">in</span> <span class="hljs-keyword">the</span> picture
+There were <span class="hljs-number">7</span> objects <span class="hljs-keyword">with</span> holes <span class="hljs-keyword">in</span> <span class="hljs-keyword">the</span> picture
+There were <span class="hljs-number">14</span> objects <span class="hljs-keyword">with</span> no holes <span class="hljs-keyword">in</span> <span class="hljs-keyword">the</span> picture
+</code></pre>
+<p><center></p>
+<figure float="middle" class="image">
+  <img src="./assets/Image - After.png" alt="after.png">
+  <figcaption>Figura 9 - Imagem de entrada</figcaption> 
+</figure>
+</center>
+<h2><a class="anchor" aria-hidden="true" id="equalização-de-histograma"></a><a href="#equalização-de-histograma" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Equalização de Histograma</h2>
+<p>Nesse exercício prático que pode ser encontrado <a href="https://agostinhobritojr.github.io/tutorial/pdi/#_exerc%C3%ADcios_3">aqui</a>, é pedido para que com o auxílio de uma câmera, imagens em escala de cinza sejam capturadas e tenham seu histograma equalizado exibido.</p>
+<p>Para isso, o primeiro passo é a abertura da câmera do sistema testando sua instanciação conforme pode ser visto abaixo</p>
+<pre><code class="hljs css language-python">cam = cv2.VideoCapture(<span class="hljs-number">0</span>)
+
+<span class="hljs-keyword">if</span> cam <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+    sys.exit(<span class="hljs-string">"Could not open webcam"</span>)
+</code></pre>
+<p>Em seguida o programa entra em loop capturando os quadros da câmera, convertendo-os para escala de cinza, equalizando-os e mostrando-os em uma janela como pode ser visto no trecho abaixo e na Figura 10.</p>
+<pre><code class="hljs css language-python"><span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>):
+    ret, frame = cam.read()
+
+    <span class="hljs-keyword">if</span> frame <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+        <span class="hljs-keyword">break</span>
+
+    img_hsv = cv2.cvtColor(frame, cv2.COLOR_RGB2HSV)
+    img_hsv[:, :, <span class="hljs-number">2</span>] = cv2.equalizeHist(img_hsv[:, :, <span class="hljs-number">2</span>])
+    img = cv2.cvtColor(img_hsv, cv2.COLOR_HSV2RGB)
+    cv2.imshow(<span class="hljs-string">"Video"</span>, img)
+
+    k = cv2.waitKey(<span class="hljs-number">30</span>) &amp; <span class="hljs-number">0xff</span>
+    <span class="hljs-keyword">if</span> k == <span class="hljs-number">27</span>:
+        <span class="hljs-keyword">break</span>
+</code></pre>
+<p><center></p>
+<figure float="middle" class="image">
+  <img src="./assets/histograma_equalizado.GIF" alt="after.png">
+  <figcaption>Figura 10 - Resultado da equalização do histograma</figcaption> 
+</figure>
+</center>
+<h2><a class="anchor" aria-hidden="true" id="detecção-de-movimento"></a><a href="#detecção-de-movimento" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Detecção de Movimento</h2>
+<p>Ainda no mesmo tópico de manipulação do histograma, foi pedido para fazer um detector de movimentos. Para isso foi feito um programa que recebe por argumento a tolerância desejada para a variação de histograma que constitui movimento, conforme pode ser observado abaixo, onde o primeiro trecho representa como deve ser feita a execução do <em>software</em> e a segunda o tratamento feito na tolerância passada pelo usuário.</p>
+<pre><code class="hljs">$ <span class="hljs-keyword">python3</span> setup.<span class="hljs-keyword">py</span> <span class="hljs-symbol">&lt;tolerancia&gt;</span>
+</code></pre>
+<pre><code class="hljs css language-python">
+tolerance = float(sys.argv[<span class="hljs-number">1</span>])
+
+<span class="hljs-keyword">if</span> tolerance <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+    tolerance = <span class="hljs-number">0.10</span>
+
+</code></pre>
+<p>Em seguida o programa pega o primeiro quadro disponível da câmera já aberta e calcula seu histograma, no canal 0, para servir de referência para a primeira comparação. Esse cálculo pode ser observado abaixo</p>
+<pre><code class="hljs css language-python">
+oldHist = cv2.calcHist([frame], [<span class="hljs-number">0</span>], <span class="hljs-literal">None</span>, [<span class="hljs-number">256</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">256</span>])
+
+</code></pre>
+<p>Em seguida entra-se no seguinte <em>loop</em>: leitura do novo frame seguido do cálculo de histograma do frame, no canal 0; comparação dos dois histogramas em relação ao tamanho da imagem, mostrando uma borda vermelha ao redor da imagem ao detectar variação maior que a tolerância e, por fim a variável que guarda histograma do frame passado é atualizado. O código do <em>loop</em> bem como o resultado obtido (Figura 11) pode ser observado abaixo.</p>
+<pre><code class="hljs css language-python"><span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>):
+    ret, frame = cam.read()
+    <span class="hljs-keyword">if</span> frame <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+        <span class="hljs-keyword">break</span>
+
+    hist = cv2.calcHist([frame], [<span class="hljs-number">0</span>], <span class="hljs-literal">None</span>, [<span class="hljs-number">256</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">256</span>])
+    histDiff = oldHist - hist
+    rows, columns, _ = frame.shape
+    <span class="hljs-keyword">if</span> np.sum(np.abs(histDiff))/(columns*rows) &gt; tolerance:
+        cv2.rectangle(frame, (<span class="hljs-number">0</span>, <span class="hljs-number">0</span>), (columns<span class="hljs-number">-1</span>, rows<span class="hljs-number">-1</span>), (<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">255</span>), <span class="hljs-number">10</span>)
+
+    cv2.imshow(<span class="hljs-string">"Video"</span>, frame)
+
+    oldHist = hist
+    k = cv2.waitKey(<span class="hljs-number">30</span>) &amp; <span class="hljs-number">0xff</span>
+    <span class="hljs-keyword">if</span> k == <span class="hljs-number">27</span>:
+        <span class="hljs-keyword">break</span>
+</code></pre>
+<p><center></p>
+<figure float="middle" class="image">
+  <img src="./assets/movimento.GIF" alt="after.png">
+  <figcaption>Figura 11 - Resultado do detector de movimento</figcaption> 
+</figure>
+</center>
+<h2><a class="anchor" aria-hidden="true" id="filtro-espacial"></a><a href="#filtro-espacial" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Filtro Espacial</h2>
+<p>O exercício do <a href="https://agostinhobritojr.github.io/tutorial/pdi/#_exerc%C3%ADcios_4">tópico seguinte</a> do material do professor fala da temática dos filtros espaciais e pede para que a partir do <a href="https://agostinhobritojr.github.io/tutorial/pdi/exemplos/filtroespacial.cpp">código fornecido como exemplo</a> seja implementado outro contendo a funcionalidade de calcular o filtro laplaciano do gaussiano de uma imagem.</p>
+<p>Para isso foi adicionado mais um opção de tecla a ser pressionada. Ao pressionar a tecla ‘s’ o programa entra no processo de aplicar o filtro gaussiano e em seguida o filtro laplaciano conforme mostrado nos trechos abaixo.</p>
+<pre><code class="hljs css language-python"><span class="hljs-keyword">elif</span> k == ord(<span class="hljs-string">'s'</span>):
+        choosenMask = <span class="hljs-string">'laplacianGaussian'</span>
+        print(filters[<span class="hljs-string">'gauss'</span>])
+        print(filters[<span class="hljs-string">'laplacian'</span>])
+</code></pre>
+<pre><code class="hljs css language-python"><span class="hljs-keyword">if</span> choosenMask == <span class="hljs-string">'laplacianGaussian'</span>:
+        frame = cv2.filter2D(frame, <span class="hljs-number">-1</span>, filters[<span class="hljs-string">'gauss'</span>])
+        frame = cv2.filter2D(frame, <span class="hljs-number">-1</span>, filters[<span class="hljs-string">'laplacian'</span>])
+</code></pre>
+<p>Ao utilizar os dois filtros percebeu-se uma redução no encontro de falsas arestas, como o filtro gaussiano borra a imagem temos menos trocas bruscas de cor devido ao ruído, em relação à utilização apenas do laplaciano. Essas constatações podem ser observadas nas Figuras 12,13 e 14 onde é possível observar a imagem sem filtros, somente com o filtro laplaciano e com o filtro laplaciano e gaussiano, respectivamente.</p>
+<p><center></p>
+<figure float="middle" class="image">
+  <img src="./assets/sem_filtros.GIF" alt="imagem sem filtro">
+  <figcaption>Figura 12 - Imagem original da câmera sem filtro</figcaption> 
+</figure>
+<figure float="middle" class="image">
+  <img src="./assets/filtro_laplaciano.GIF" alt="imagem com filtro laplaciano">
+  <figcaption>Figura 13 - Imagem com filtro laplaciano</figcaption> 
+</figure>
+<figure float="middle" class="image">
+  <img src="./assets/filtros_laplaciano_gauss.GIF" alt="imagem com filtro laplaciano e gaussiano">
+  <figcaption>Figura 14 - Imagem com filtro laplaciano do gaussiano</figcaption> 
+</figure>
+</center>
+<h2><a class="anchor" aria-hidden="true" id="tilt-shift-em-imagens"></a><a href="#tilt-shift-em-imagens" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Tilt Shift em Imagens</h2>
+<p>Nesta que é a <a href="https://agostinhobritojr.github.io/tutorial/pdi/#_exerc%C3%ADcios_5">última sessão da primeira unidade</a> é pedido que, com base no <a href="https://agostinhobritojr.github.io/tutorial/pdi/exemplos/addweighted.cpp">exemplo dado no material</a> implemente-se um programa para geração de um <em>tilt shift</em>. É pedido que tenha-se três ajustes na interface sendo eles: a altura da região central que entrará em foco, força do decaimento da região borrada e regulagem da posição vertical do centro da região que entrará em foco.</p>
+<p>Na hora da execução, o programa recebe duas imagens, como pode ser observado no comando abaixo, sendo a primeira a que ficara no plano de fundo e a segunda a que será manipulada para criação do efeito.</p>
+<pre><code class="hljs">$ <span class="hljs-keyword">python3</span> setup.<span class="hljs-keyword">py</span> <span class="hljs-symbol">&lt;path_da_primeira_imagem&gt;</span> <span class="hljs-symbol">&lt;path_da_segunda_imagem&gt;</span>
+</code></pre>
+<p>No código, o primeiro passo realizado foi a criação de uma janela e dos três sliders como pode ser visto no trecho abaixo.</p>
+<pre><code class="hljs css language-python">alfa_slider_max = <span class="hljs-number">100</span>
+center_slider_max = <span class="hljs-number">100</span>
+height_slider_max = <span class="hljs-number">100</span>
+
+cv2.namedWindow(<span class="hljs-string">'image'</span>)
+
+cv2.createTrackbar(<span class="hljs-string">'Alfa'</span>, <span class="hljs-string">'image'</span>, <span class="hljs-number">0</span>, alfa_slider_max, skip)
+cv2.createTrackbar(<span class="hljs-string">'Center'</span>, <span class="hljs-string">'image'</span>, <span class="hljs-number">0</span>, center_slider_max, skip)
+cv2.createTrackbar(<span class="hljs-string">'Height'</span>, <span class="hljs-string">'image'</span>, <span class="hljs-number">0</span>, height_slider_max, skip)
+
+</code></pre>
+<p>Em seguida, esses sliders foram inseridos na janela e seus valores monitorados continuamente em um laço. Os valores escolhidos pelo usuário são aplicados na imagem denominada <code>blended</code>. A partir da posição desejada do centro e da altura é possível calcular os pontos superior esquerdo e inferior direito para que assim possamos construir a janela, como mostrado no trecho abaixo. Ao encerrar o programa, apertando a tecla <code>esc</code> a imagem final é salva.</p>
+<pre><code class="hljs css language-python"><span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+    alfa_slider = cv2.getTrackbarPos(<span class="hljs-string">'Alfa'</span>, <span class="hljs-string">'image'</span>)
+    center_slider = cv2.getTrackbarPos(<span class="hljs-string">'Center'</span>, <span class="hljs-string">'image'</span>)
+    height_slider = cv2.getTrackbarPos(<span class="hljs-string">'Height'</span>, <span class="hljs-string">'image'</span>)
+
+    p1 = (max(<span class="hljs-number">0</span>, int((center_slider-height_slider)/<span class="hljs-number">100.0</span>*columns)), <span class="hljs-number">0</span>)
+    p2 = (min(columns<span class="hljs-number">-1</span>, int((center_slider+height_slider)/<span class="hljs-number">100.0</span>*columns)), rows<span class="hljs-number">-1</span>)
+
+    imgTop = img1.copy()
+    imgTop[p1[<span class="hljs-number">0</span>]:p2[<span class="hljs-number">0</span>], p1[<span class="hljs-number">1</span>]:p2[<span class="hljs-number">1</span>], :] = img2.copy()[p1[<span class="hljs-number">0</span>]:p2[<span class="hljs-number">0</span>],
+                                                      p1[<span class="hljs-number">1</span>]:p2[<span class="hljs-number">1</span>], :]
+
+    alfa = float(float(alfa_slider)/float(alfa_slider_max))
+    blended = cv2.addWeighted(img1, alfa, imgTop, <span class="hljs-number">1</span>-alfa, <span class="hljs-number">0</span>)
+
+    cv2.imshow(<span class="hljs-string">'image'</span>, blended)
+    k = cv2.waitKey(<span class="hljs-number">1</span>) &amp; <span class="hljs-number">0xFF</span>
+    <span class="hljs-keyword">if</span> k == <span class="hljs-number">27</span>:
+        <span class="hljs-keyword">break</span>
+</code></pre>
+<p>Abaixo, é possível ver uma demonstração do programa em execução, seguido da imagem salva.</p>
+<p><center></p>
+<figure float="middle" class="image">
+  <img src="./assets/tilt_shift_fotos.GIF" alt=" Demonstração do ajustes dos parâmetros GIF">
+  <figcaption>Figura 15 - Demonstração do ajustes dos parâmetros</figcaption> 
+</figure>
+</center>
+<p><center></p>
+<figure float="middle" class="image">
+  <img src="./assets/output.png" alt="Imagem salva pelo programa">
+  <figcaption>Figura 16 - Imagem salva pelo programa</figcaption> 
+</figure>
+</center>
+<h2><a class="anchor" aria-hidden="true" id="tilt-shift-em-vídeos"></a><a href="#tilt-shift-em-vídeos" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Tilt Shift em Vídeos</h2>
+<p>Em breve!</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-next button" href="/Digital-Image-Processing/docs/doc2"><span>Exercícios Práticos 2</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#região-negativa">Região Negativa</a></li><li><a href="#troca-de-regiões">Troca de Regiões</a></li><li><a href="#labeling">Labeling</a></li><li><a href="#equalização-de-histograma">Equalização de Histograma</a></li><li><a href="#detecção-de-movimento">Detecção de Movimento</a></li><li><a href="#filtro-espacial">Filtro Espacial</a></li><li><a href="#tilt-shift-em-imagens">Tilt Shift em Imagens</a></li><li><a href="#tilt-shift-em-vídeos">Tilt Shift em Vídeos</a></li></ul></nav></div><footer class="nav-footer" id="footer"></footer></div></body></html>
