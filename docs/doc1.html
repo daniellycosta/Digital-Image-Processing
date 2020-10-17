@@ -95,6 +95,7 @@ rows, columns = img.shape
   <figcaption>Figura 2 - Imagem de Saída com os pontos P1(10,10) e P2(100,220)</figcaption>  
 </figure>
 </center>
+<p>O código na íntegra pode ser encontrado <a href="https://github.com/daniellycosta/Digital-Image-Processing/blob/main/negative_region/setup.py">aqui</a></p>
 <h2><a class="anchor" aria-hidden="true" id="troca-de-regiões"></a><a href="#troca-de-regiões" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Troca de Regiões</h2>
 <p>Nesse exercício, foi pedido para que passando uma imagem, os quadrantes sejam trocados nas diagonais. Para isso, foi convencionado que a imagem seria passada pelo terminal na hora da execução utilizando-se do comando abaixo.</p>
 <pre><code class="hljs">$ <span class="hljs-keyword">python3</span> setup.<span class="hljs-keyword">py</span> <span class="hljs-symbol">&lt;path_da_imagem&gt;</span>
@@ -125,6 +126,7 @@ out_img = cv.vconcat([upper_img, lower_img])
   <figcaption>Figura 4 - Imagem de Saída com os quadrantes trocados</figcaption>  
 </figure>
 </center>
+<p>O código na íntegra pode ser encontrado <a href="https://github.com/daniellycosta/Digital-Image-Processing/blob/main/change_regions/setup.py">aqui</a></p>
 <h2><a class="anchor" aria-hidden="true" id="labeling"></a><a href="#labeling" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Labeling</h2>
 <p>O exercício de labeling, no tópico de <a href="https://agostinhobritojr.github.io/tutorial/pdi/#_exerc%C3%ADcios_2">preenchimentos de regiões</a>, pergunta em seu primeiro tópico, o que acontece caso se tenha mais de 255 objetos na cena e a solução.</p>
 <p>Observando o algoritmo de <a href="https://agostinhobritojr.github.io/tutorial/pdi/exemplos/labeling.cpp">labeling</a> é possível perceber que ao exceder uma quantidade de objetos de 255, o programa original irá ter uma falha ao tentar preencher um tom de cinza inexistente na imagem. Para solucionar esse problema passou-se a utilizar o resto da divisão do contador por 254 somado de um como o tom de cinza do objeto e passamos a incrementação do contador para depois da decisão do tom de cinza, assim teremos tons de cinza variando entre 1 e 254.</p>
@@ -208,6 +210,7 @@ There were <span class="hljs-number">14</span> objects <span class="hljs-keyword
   <figcaption>Figura 9 - Imagem de entrada</figcaption> 
 </figure>
 </center>
+<p>O código na íntegra pode ser encontrado <a href="https://github.com/daniellycosta/Digital-Image-Processing/blob/main/bubbles/setup.py">aqui</a></p>
 <h2><a class="anchor" aria-hidden="true" id="equalização-de-histograma"></a><a href="#equalização-de-histograma" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Equalização de Histograma</h2>
 <p>Nesse exercício prático que pode ser encontrado <a href="https://agostinhobritojr.github.io/tutorial/pdi/#_exerc%C3%ADcios_3">aqui</a>, é pedido para que com o auxílio de uma câmera, imagens em escala de cinza sejam capturadas e tenham seu histograma equalizado exibido.</p>
 <p>Para isso, o primeiro passo é a abertura da câmera do sistema testando sua instanciação conforme pode ser visto abaixo</p>
@@ -238,6 +241,7 @@ There were <span class="hljs-number">14</span> objects <span class="hljs-keyword
   <figcaption>Figura 10 - Resultado da equalização do histograma</figcaption> 
 </figure>
 </center>
+<p>O código na íntegra pode ser encontrado <a href="https://github.com/daniellycosta/Digital-Image-Processing/blob/main/webcam_equilize/setup.py">aqui</a></p>
 <h2><a class="anchor" aria-hidden="true" id="detecção-de-movimento"></a><a href="#detecção-de-movimento" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Detecção de Movimento</h2>
 <p>Ainda no mesmo tópico de manipulação do histograma, foi pedido para fazer um detector de movimentos. Para isso foi feito um programa que recebe por argumento a tolerância desejada para a variação de histograma que constitui movimento, conforme pode ser observado abaixo, onde o primeiro trecho representa como deve ser feita a execução do <em>software</em> e a segunda o tratamento feito na tolerância passada pelo usuário.</p>
 <pre><code class="hljs">$ <span class="hljs-keyword">python3</span> setup.<span class="hljs-keyword">py</span> <span class="hljs-symbol">&lt;tolerancia&gt;</span>
@@ -279,6 +283,7 @@ oldHist = cv2.calcHist([frame], [<span class="hljs-number">0</span>], <span clas
   <figcaption>Figura 11 - Resultado do detector de movimento</figcaption> 
 </figure>
 </center>
+<p>O código na íntegra pode ser encontrado <a href="https://github.com/daniellycosta/Digital-Image-Processing/blob/main/webcam_motiondetector/setup.py">aqui</a></p>
 <h2><a class="anchor" aria-hidden="true" id="filtro-espacial"></a><a href="#filtro-espacial" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Filtro Espacial</h2>
 <p>O exercício do <a href="https://agostinhobritojr.github.io/tutorial/pdi/#_exerc%C3%ADcios_4">tópico seguinte</a> do material do professor fala da temática dos filtros espaciais e pede para que a partir do <a href="https://agostinhobritojr.github.io/tutorial/pdi/exemplos/filtroespacial.cpp">código fornecido como exemplo</a> seja implementado outro contendo a funcionalidade de calcular o filtro laplaciano do gaussiano de uma imagem.</p>
 <p>Para isso foi adicionado mais um opção de tecla a ser pressionada. Ao pressionar a tecla ‘s’ o programa entra no processo de aplicar o filtro gaussiano e em seguida o filtro laplaciano conforme mostrado nos trechos abaixo.</p>
@@ -306,6 +311,7 @@ oldHist = cv2.calcHist([frame], [<span class="hljs-number">0</span>], <span clas
   <figcaption>Figura 14 - Imagem com filtro laplaciano do gaussiano</figcaption> 
 </figure>
 </center>
+<p>O código na íntegra pode ser encontrado <a href="https://github.com/daniellycosta/Digital-Image-Processing/blob/main/spatial_filter/setup.py">aqui</a></p>
 <h2><a class="anchor" aria-hidden="true" id="tilt-shift-em-imagens"></a><a href="#tilt-shift-em-imagens" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Tilt Shift em Imagens</h2>
 <p>Nesta que é a <a href="https://agostinhobritojr.github.io/tutorial/pdi/#_exerc%C3%ADcios_5">última sessão da primeira unidade</a> é pedido que, com base no <a href="https://agostinhobritojr.github.io/tutorial/pdi/exemplos/addweighted.cpp">exemplo dado no material</a> implemente-se um programa para geração de um <em>tilt shift</em>. É pedido que tenha-se três ajustes na interface sendo eles: a altura da região central que entrará em foco, força do decaimento da região borrada e regulagem da posição vertical do centro da região que entrará em foco.</p>
 <p>Na hora da execução, o programa recebe duas imagens, como pode ser observado no comando abaixo, sendo a primeira a que ficara no plano de fundo e a segunda a que será manipulada para criação do efeito.</p>
@@ -357,6 +363,14 @@ cv2.createTrackbar(<span class="hljs-string">'Height'</span>, <span class="hljs-
   <figcaption>Figura 16 - Imagem salva pelo programa</figcaption> 
 </figure>
 </center>
+<p>O código na íntegra pode ser encontrado <a href="https://github.com/daniellycosta/Digital-Image-Processing/blob/main/tilt_shift/setup.py">aqui</a></p>
 <h2><a class="anchor" aria-hidden="true" id="tilt-shift-em-vídeos"></a><a href="#tilt-shift-em-vídeos" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Tilt Shift em Vídeos</h2>
-<p>Em breve!</p>
+<p>Ainda no último tópico, foi pedido uma versão para vídeo. Essa versão têm poucas mudanças em relação à anterior: recebe apenas uma imagem e utiliza a câmera principal do sistema como a outra imagem. A imagem recebida é utilizada como fundo e os quadros da câmera como imagem principal. O cálculo dos pontos é feito do mesmo jeito. Outra pequena adição feita é a possibilidade de redimensionar ou não o plano de fundo para ficar do tamanho dos quadros da câmera. Ao terminar o programa todos os quadros tratados em um arquivo de vídeo.</p>
+<p>O vídeo de saída pode ser conferido abaixo</p>
+<figure class="video_container">
+  <video controls="true" allowfullscreen="true" poster="path/to/poster_image.png">
+    <source src="./assets/output.mp4" type="video/mp4">
+  </video>
+</figure>
+<p>O código na íntegra pode ser encontrado <a href="https://github.com/daniellycosta/Digital-Image-Processing/blob/main/tilt_shift_video/setup.py">aqui</a></p>
 </span></div></article></div><div class="docs-prevnext"><a class="docs-next button" href="/Digital-Image-Processing/docs/doc2"><span>Exercícios Práticos 2</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#região-negativa">Região Negativa</a></li><li><a href="#troca-de-regiões">Troca de Regiões</a></li><li><a href="#labeling">Labeling</a></li><li><a href="#equalização-de-histograma">Equalização de Histograma</a></li><li><a href="#detecção-de-movimento">Detecção de Movimento</a></li><li><a href="#filtro-espacial">Filtro Espacial</a></li><li><a href="#tilt-shift-em-imagens">Tilt Shift em Imagens</a></li><li><a href="#tilt-shift-em-vídeos">Tilt Shift em Vídeos</a></li></ul></nav></div><footer class="nav-footer" id="footer"></footer></div></body></html>
