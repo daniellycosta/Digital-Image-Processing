@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import copy
 import sys
 
 def moveDFT(image):
@@ -46,15 +47,15 @@ cam.set(cv2.CAP_PROP_FRAME_HEIGHT,480)
 
 if cam is None:
     sys.exit("Could not open webcam")
-
-image = cam
+_,frame = cam.read()
+image = copy.copy(frame)
 
 rows,columns,_ = image.shape
 
 dft_M = cv2.getOptimalDFTSize(rows)
 dft_N = cv2.getOptimalDFTSize(columns)
 
-freq_max = dft_M / 2 - 1
+freq_max = int(dft_M / 2 - 1)
 
 noise = True
 mean = 0
@@ -81,12 +82,12 @@ on_trackbar_frequency(freq,0)
 cv2.createTrackbar("amp. ruido", "original", gain_int, gain_max,on_trackbar_noise_gain)
 on_trackbar_noise_gain(gain_int, 0)
 
-padded = None
-cv2.copyMakeBorder(image, padded, 0, dft_M - image.rows, 0,dft_N - image.cols, cv2.BORDER_CONSTANT)
+padded = cv2.copyMakeBorder(image, 0, dft_M - rows, 0,dft_N - columns, cv2.BORDER_CONSTANT)
+padded_rows,padded_columns,_= padded.shape
 
-#complex_Image = 
- 
-tmp = np.zeros(dft_M,dft_M,cv2.CV_32F)
+complex_image = np.zeros((padded_rows,padded_columns),np.float32)
+freq_filter = copy.copy(complex_image)
+tmp = np.zeros((dft_M,dft_M),np.float32)
 
 
 menu()
@@ -100,22 +101,22 @@ while(1):
     image = cam
     cv2.cvtColor(image,imagegray,cv2.COLOR_BGR2GRAY)
     if background == True:
-        imagegray.copyTo(backgroundImage)
+        imagegray = copy.copy(backgroundImage)
         background = False
     
     if subtract:
         imagegray = cv2.max(imagegray - backgroundImage, 0)
     
     if negative:
-        imagegray = ~imagegray
+        imagegray = not imagegray
     
     if median:
         cv2.medianBlur(imagegray, image, 3)
-        image.copyTo(imagegray)
+        image = copy.copy(imagegray)
     
     if gaussian:
         cv2.GaussianBlur(imagegray, image,(3, 3), 0)
-        image.copyTo(imagegray)
+        image=copy.copy(imagegray)
     
 
 
