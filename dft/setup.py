@@ -92,31 +92,30 @@ tmp = np.zeros((dft_M,dft_M),np.float32)
 
 menu()
 
-imagegray = None
 backgroundImage=None
 while(1):
     ret, frame = cam.read()
     if frame is None:
         break
-    image = cam
-    cv2.cvtColor(image,imagegray,cv2.COLOR_BGR2GRAY)
+    image = frame
+    imagegray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
     if background == True:
-        imagegray = copy.copy(backgroundImage)
+        backgroundImage = copy.copy(imagegray)
         background = False
     
     if subtract:
         imagegray = cv2.max(imagegray - backgroundImage, 0)
     
     if negative:
-        imagegray = not imagegray
+        imagegray = ~imagegray
     
     if median:
-        cv2.medianBlur(imagegray, image, 3)
-        image = copy.copy(imagegray)
+        image = cv2.medianBlur(imagegray, 3)
+        imagegray = copy.copy(image)
     
     if gaussian:
-        cv2.GaussianBlur(imagegray, image,(3, 3), 0)
-        image=copy.copy(imagegray)
+        image =  cv2.GaussianBlur(imagegray,(3, 3), 0)
+        imagegray=copy.copy(image)
     
 
 
