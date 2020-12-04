@@ -8,7 +8,7 @@ JITTER = 3
 RADIUS = 3
 CANNY_RADIUS = 2
 
-T1 = 120
+T1 = 30
 
 if len(sys.argv) < 2:
     sys.exit("Missing parameters")
@@ -54,7 +54,7 @@ for i in xrange:
 cv.imshow("Pointillism", points)
 cv.imwrite("point.jpg", points)
 
-edges = cv.Canny(points, T1, 3*T1) 
+edges = cv.Canny(image, T1, 3*T1) 
 
 cv.imshow('Canny',edges) 
 cv.imwrite("canny.jpg", edges)
