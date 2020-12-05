@@ -59,6 +59,8 @@ Fazendo isso, o resultado será a imagem com a região escolhida em negativo
 </figure>
 </center>
 
+O código na íntegra pode ser encontrado [aqui](https://github.com/daniellycosta/Digital-Image-Processing/blob/main/negative_region/setup.py)
+
 ## Troca de Regiões
 
 Nesse exercício, foi pedido para que passando uma imagem, os quadrantes sejam trocados nas diagonais. Para isso, foi convencionado que a imagem seria passada pelo terminal na hora da execução utilizando-se do comando abaixo.
@@ -102,6 +104,8 @@ out_img = cv.vconcat([upper_img, lower_img])
   <figcaption>Figura 4 - Imagem de Saída com os quadrantes trocados</figcaption>  
 </figure>
 </center>
+
+O código na íntegra pode ser encontrado [aqui](https://github.com/daniellycosta/Digital-Image-Processing/blob/main/change_regions/setup.py)
 
 ## Labeling
 
@@ -211,6 +215,8 @@ There were 14 objects with no holes in the picture
 </figure>
 </center>
 
+O código na íntegra pode ser encontrado [aqui](https://github.com/daniellycosta/Digital-Image-Processing/blob/main/bubbles/setup.py)
+
 ## Equalização de Histograma
 
 Nesse exercício prático que pode ser encontrado [aqui](https://agostinhobritojr.github.io/tutorial/pdi/#_exerc%C3%ADcios_3), é pedido para que com o auxílio de uma câmera, imagens em escala de cinza sejam capturadas e tenham seu histograma equalizado exibido.
@@ -249,6 +255,8 @@ while(1):
   <figcaption>Figura 10 - Resultado da equalização do histograma</figcaption> 
 </figure>
 </center>
+
+O código na íntegra pode ser encontrado [aqui](https://github.com/daniellycosta/Digital-Image-Processing/blob/main/webcam_equilize/setup.py)
 
 ## Detecção de Movimento
 
@@ -304,6 +312,8 @@ while(1):
 </figure>
 </center>
 
+O código na íntegra pode ser encontrado [aqui](https://github.com/daniellycosta/Digital-Image-Processing/blob/main/webcam_motiondetector/setup.py)
+
 ## Filtro Espacial
 
 O exercício do [tópico seguinte](https://agostinhobritojr.github.io/tutorial/pdi/#_exerc%C3%ADcios_4) do material do professor fala da temática dos filtros espaciais e pede para que a partir do [código fornecido como exemplo](https://agostinhobritojr.github.io/tutorial/pdi/exemplos/filtroespacial.cpp) seja implementado outro contendo a funcionalidade de calcular o filtro laplaciano do gaussiano de uma imagem.
@@ -341,6 +351,8 @@ Ao utilizar os dois filtros percebeu-se uma redução no encontro de falsas ares
   <figcaption>Figura 14 - Imagem com filtro laplaciano do gaussiano</figcaption> 
 </figure>
 </center>
+
+O código na íntegra pode ser encontrado [aqui](https://github.com/daniellycosta/Digital-Image-Processing/blob/main/spatial_filter/setup.py)
 
 ## Tilt Shift em Imagens
 
@@ -407,6 +419,18 @@ Abaixo, é possível ver uma demonstração do programa em execução, seguido d
 </figure>
 </center>
 
+O código na íntegra pode ser encontrado [aqui](https://github.com/daniellycosta/Digital-Image-Processing/blob/main/tilt_shift/setup.py)
+
 ## Tilt Shift em Vídeos
 
-Em breve!
+Ainda no último tópico, foi pedido uma versão para vídeo. Essa versão têm poucas mudanças em relação à anterior: recebe apenas uma imagem e utiliza a câmera principal do sistema como a outra imagem. A imagem recebida é utilizada como fundo e os quadros da câmera como imagem principal. O cálculo dos pontos é feito do mesmo jeito. Outra pequena adição feita é a possibilidade de redimensionar ou não o plano de fundo para ficar do tamanho dos quadros da câmera. Ao terminar o programa todos os quadros tratados em um arquivo de vídeo.
+
+O vídeo de saída pode ser conferido abaixo
+
+<figure class="video_container">
+  <video controls="true" allowfullscreen="true" poster="path/to/poster_image.png">
+    <source src="./assets/output.mp4" type="video/mp4">
+  </video>
+</figure>
+
+O código na íntegra pode ser encontrado [aqui](https://github.com/daniellycosta/Digital-Image-Processing/blob/main/tilt_shift_video/setup.py)
