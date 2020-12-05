@@ -3,34 +3,11 @@ import numpy as np
 import copy
 import sys
 
-def moveDFT(image):
-    rows, columns,_ = image.shape
-    img = image[0:columns & -2, 0:rows & -2]
-
-    rows_cropped,columns_croped,_ = img.shape
-    
-    row_limit = int(rows_cropped/2)
-    columns_limit = int(columns_croped/2)
-
-    A = img[0:row_limit, 0:columns_limit]
-    B = img[0:row_limit, columns_limit:columns]
-    C = img[row_limit:rows, 0:columns_limit]
-    D = img[row_limit:rows, columns_limit:columns]
-
-    upper_img = cv2.hconcat([D, C])
-    lower_img = cv2.hconcat([B, A])
-
-    out_img = cv2.vconcat([upper_img, lower_img])
-    return out_img
+def applyHomomorphicFilter():
+    return
 
 def menu():
-    print(  "e : habilita/desabilita interferencia\n"
-        "m : habilita/desabilita o filtro mediano\n"
-        "g : habilita/desabilita o filtro gaussiano\n"
-        "p : realiza uma amostra das imagens\n"
-        "s : habilita/desabilita subtraÃ§Ã£o de fundo\n"
-        "b : realiza uma amostra do fundo da cena\n"
-        "n : processa o negativo\n")
+    print("h : habilita/desabilita filtro homomorfico\n")
     
 def on_trackbar_frequency(freq,freq_max):
     return
@@ -39,7 +16,6 @@ def on_trackbar_noise_gain(gain, gain_max):
     return
 
 
-radius = 20
 cam = cv2.VideoCapture(0)
 
 cam.set(cv2.CAP_PROP_FRAME_WIDTH,640)
@@ -47,48 +23,23 @@ cam.set(cv2.CAP_PROP_FRAME_HEIGHT,480)
 
 if cam is None:
     sys.exit("Could not open webcam")
+
 _,frame = cam.read()
 image = copy.copy(frame)
 
-rows,columns,_ = image.shape
+columns,rows,_ = image.shape
 
 dft_M = cv2.getOptimalDFTSize(rows)
 dft_N = cv2.getOptimalDFTSize(columns)
 
-freq_max = int(dft_M / 2 - 1)
-
-noise = True
-mean = 0
-
-freq = 10
-
-
-gain_int = 0
-gain_max = 100
-gain = 0
-
-median = False
-gaussian = False
-negative = False
-
-sample = False
-background= False
-subtract = False
+homomorphic = False
 
 cv2.namedWindow("original",1)
-cv2.createTrackbar("frequencia", "original", freq, freq_max,on_trackbar_frequency)
-on_trackbar_frequency(freq,0)
+#cv2.createTrackbar("frequencia", "original", freq, freq_max,on_trackbar_frequency)
+#on_trackbar_frequency(freq,0)
 
-cv2.createTrackbar("amp. ruido", "original", gain_int, gain_max,on_trackbar_noise_gain)
-on_trackbar_noise_gain(gain_int, 0)
-
-padded = cv2.copyMakeBorder(image, 0, dft_M - rows, 0,dft_N - columns, cv2.BORDER_CONSTANT)
-padded_rows,padded_columns,_= padded.shape
-
-complex_image = np.zeros((padded_rows,padded_columns),np.float32)
-freq_filter = copy.copy(complex_image)
-tmp = np.zeros((dft_M,dft_M),np.float32)
-
+#cv2.createTrackbar("amp. ruido", "original", gain_int, gain_max,on_trackbar_noise_gain)
+#on_trackbar_noise_gain(gain_int, 0)
 
 menu()
 
@@ -98,46 +49,29 @@ while(1):
     if frame is None:
         break
     image = frame
+    rows,columns,_ = image.shape
     imagegray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
-    if background == True:
-        backgroundImage = copy.copy(imagegray)
-        background = False
+    padded = cv2.copyMakeBorder(imagegray, 0, dft_M - columns, 0, dft_N - rows, cv2.BORDER_CONSTANT, 0)
     
-    if subtract:
-        imagegray = cv2.max(imagegray - backgroundImage, 0)
-    
-    if negative:
-        imagegray = ~imagegray
-    
-    if median:
-        image = cv2.medianBlur(imagegray, 3)
-        imagegray = copy.copy(image)
-    
-    if gaussian:
-        image =  cv2.GaussianBlur(imagegray,(3, 3), 0)
-        imagegray=copy.copy(image)
-    
+    dft = cv2.dft(np.float32(imagegray)/255.0,flags = cv2.DFT_COMPLEX_OUTPUT)
+    dft_shift = np.fft.fftshift(dft)
+    magnitude_spectrum = 20*np.log(cv2.magnitude(dft_shift[:,:,0],dft_shift[:,:,1]))
 
+    cv2.namedWindow('DFT', 1)
+    cv2.imshow("DFT", magnitude_spectrum)
+    #cv2.imwrite( "dft.jpg", np.uint8(img))
+    #cv2.resizeWindow("DFT", 250, 250)
 
-    cv2.imshow("Video", frame)
+    cv2.imshow("original", imagegray)
+
+    if homomorphic:
+        applyHomomorphicFilter()
 
     k = cv2.waitKey(30) & 0xff
     if k == 27:
         break
-    elif k==ord('e'):
-       noise = not noise
-    elif k == ord('m'):
-        median = not median 
-    elif k == ord('g'):
-        gaussian = not gaussian
-    elif k == ord('p'):
-        sample = True 
-    elif k == ord('s'):
-        subtract = True
-    elif k == ord('b'):
-        background = True
-    elif k == ord('n'):
-        negative = not negative
+    elif k == ord('h'):
+        homomorphic = not homomorphic
 
 
 
